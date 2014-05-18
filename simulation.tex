@@ -1,0 +1,228 @@
+\chapter{Simulation}
+\section{Modelling Circuits}
+A circuit is a set of components and a set of wires. The fields which define components and wires are shown in figures \ref{fig:component} and \ref{fig:wire} respectively. The only constraint placed on circuits is that no more than one wire may be incident on a single input port.
+
+\begin{figure}[H]
+\centering
+\begin{itemize}
+	\item The \textbf{number of inputs} the component has ($N$)
+	\item The \textbf{number of outputs} the component has ($M$)
+	\item An \textbf{evaluation function} which takes a list of $N$ truth values and returns a list  of $M$ truth values. The Evaluation Function also defines the propagation delay of the component, as discussed throughout this chapter.
+\end{itemize}
+\label{fig:component}
+\caption{Fields of a Component}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{itemize}
+	\item The \textbf{source component} the wire is leaving from
+	\item The \textbf{output port} of the source component
+	\item The \textbf{target component} the wire is going to
+	\item The \textbf{input port} of the target component
+	\item The current \textbf{truth value} of the wire 
+\end{itemize}
+\label{fig:wire}
+\caption{Fields of a Wire}
+\end{figure}
+
+\section{Event-Based Simulation}
+GatePlay uses an event-based algorithm to simulate logic circuits. An event is defined by the following four values:
+
+\begin{itemize}
+	\item The \textbf{source component} the event is propagating from
+	\item The \textbf{output port} on the source component which has changed value
+	\item The \textbf{event time} at which it is occurring
+	\item The new \textbf{truth value} of the output port
+\end{itemize}
+
+Events are stored in a priority queue, and have priority equal to their event time. Lower times are more urgent. The heart of an event-based simulation is the event loop which processes all the events and generates new events.
+
+\begin{figure}[H]
+\begin{enumerate}
+	\item \textbf{Fetch} next event to be processed from priority queue
+	\item \textbf{Update} the value of the wires connected to the event port
+	\item \textbf{Recalculate} the output of any gates whose inputs changed
+	\item \textbf{Propagate} the change by creating new events for each changed output, and add to the queue after the gate's delay
+\end{enumerate}
+\caption{Event Loop Body}
+\end{figure}
+
+\subsection{Event Loop Example}
+Consider the circuit shown in figure~\ref{fig:simple}. Let $A$'s output current output be $False$, event queue contain a single event $ev = (A, 1, t, True)$, and the current time be $t$.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[not port] (not1) {}
+	(3,0) node[not port] (not2) {}
+	(not1.out) -- (not2.in);
+	\draw (not1) node[left=-2pt] {A};
+	\draw (not2) node[left=-2pt] {B};
+\end{circuitikz}
+\caption{Two $NOT$ Gates}
+\label{fig:simple}
+\end{figure}
+
+\begin{enumerate}
+	\item Pop $ev$ from the queue
+	\item Update the wire coming from $A$ port $1$ to $True$
+	\item $B$'s input has changed, so apply its evaluation function to the new input, which returns $False$
+	\item Since $B$'s output changed, add the following new event to the queue: $(B, 1, t + \delta, False)$ where $\delta$ is $B$'s gate delay
+\end{enumerate}
+
+\subsection{Culling}
+\label{subsec:culling}
+Events can sometimes be discarded without being processed by the entire event loop. For example, events which set a wire to the value it already is do not change anything in the circuit and can be discarded during stage 2 of the event loop.
+
+\subsection{Initial Components}
+So far we have only discussed events being generated as a result of previous events. However some components, known as \textit{Initial Components} can create events spontaneously.
+
+\begin{itemize}
+	\item \textbf{Constant Components} such as $ON$ and $OFF$ never change value, and so place their events in the queue once when the circuit is initialised.
+	\item \textbf{Timed Components} such as $Blinker$s toggle their output at a set interval and cannot be fully handled when the circuit is initialised. $Blinker$s must be periodically polled to see if they have changed value. In GatePlay's implementation all blinkers add an event on every clock tick and rely on culling (see \ref{subsec:culling}) to eliminate tautological events. A more efficient implementation would be to use a priority queue to store the next time each blinker is going to change value. The naive implementation gives acceptable performance when there are relatively few $Blinker$s in the circuit. If users were found to be using too many it would be possible to implement the better algorithm.
+	
+	\item \textbf{External Components} like $Toggle$s add events based on user interaction. Since the stimulus to create an event comes from outside the simulator, it is a simple case of putting a method to create circuit events in the circuit's public API.
+\end{itemize}
+
+\subsection{Event Race Conditions}
+Consider the circuit shown in figure~\ref{fig:racecondition}:
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[and port] (and1) {}
+	(and1.in 1) node[anchor=east]{A}
+	(and1.in 2) node[anchor=east]{B}
+	(and1.out) node[anchor=west]{C};
+	 \draw (and1) node[left=12pt] {Z};
+\end{circuitikz}
+\caption{And gate}
+\label{fig:racecondition}
+\end{figure}
+
+Suppose there are two events in the event queue: $(X, 1, t, True)$ and $(Y, 1, t, True)$ where $X$ port $1$ is wired to $A$, and $Y$ port $1$ is wired to $B$. Before handling the events, $A$, $B$, and $C$ are all $False$. It now time $t$.
+
+We handle each event independently. Suppose without loss of generality that we handle the event coming from $X$ first. We set $A$ to $True$, $B$ is still thought to be $False$, and therefore we add the event $(Z, 1, t + \delta, False)$ to the queue.
+
+Next we handle the event coming from $Y$. $B$ is set to $True$ and $A$ is known to be $True$, so we add the event $(Z, 1, t + \delta, True)$ to the queue.
+
+The queue now contains two events with different truth values occurring on $Z$ port $1$ at the same time. If the event valued at $False$ is handled first it will be culled and the circuit will be simulated correctly. However if it is handled second then the output of $Z$ will be calculated as $False$, despite both its inputs being $True$! Since we are using a priority queue and both events have the same priority, there is no defined behaviour for which event will be handled first.
+
+The solution is to do a first pass through all events happening at time $t$ and update the values of each of the affected wires. Following that with the previous algorithm will result in both generated events being $(Z, 1, t + \delta, True)$ and there will not be a race condition.
+
+A further refinement implemented in GatePlay is to use a set to store the components whose inputs have been changed. Since sets do not store duplicates, $Z$'s output will only be calculated once.
+
+\subsection{Efficiency}
+The speed of an event-based simulation is largely determined by the number of events being generated and processed, provided sensible data structures are used to store the components and wires.
+
+Event-based simulations are therefore particularly performant in quiet circuits, where there may be a large number of components and connections but fewer changes are occurring.
+
+Reducing the time spend processing events through Culling (see section~\ref{subsec:culling}) is critically important.
+
+\section{2-Valued Simulation}
+\label{sec:2-valued}
+\subsection{Description}
+A simple simulation of logic circuits might use a 2-valued simulation. Each wire has one of two values: \textit{True} or \textit{False}. While it provides a reasonable model for logic circuits, it has some limitations described in this section.
+
+\subsection{Initialisation Values}
+\label{subsec:2-valued initialisation}
+Another problem with a 2-valued simulation is the matter of initialising a circuit before simulation begins. All wires must be either $True$ or $False$ valued, but what is a sensible default? Suppose we initialise all wires to $False$. Consider the circuit in figure~\ref{fig:initialisation}:
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[not port] (not1) {}
+	(not1.in) node[anchor=east] {False}
+ 	(not1.out) node[anchor=west] {False};
+\end{circuitikz}
+\caption{An inconsistently initialised $NOT$ Gate}
+\label{fig:initialisation}
+\end{figure}
+
+To have both $A$ and $B$ both be initialised to be $False$ is inconsistent with the logic of the circuit. The same would be true were it initialised with all $True$ values. It is possible to solve the problem by moving to a 3-valued simulation (discussed in section~\ref{sec:3-valued}.
+
+
+\subsection{Propagation Delay Uncertainty}
+\label{subsec:2-valued uncertainty}
+As discussed in section~\ref{sec:circuits}, the \textit{Propagation Delay} of a component is the time it takes from its inputs being stable and valid to its outputs becoming stable and valid (from Wikipedia). 
+
+Previously we have assumed that this delay is constant for a given component, but in reality the precise delay varies based on temperature, voltage, and output capacitance. Our model of logic circuits does not consider these factors and therefore cannot make an informed estimation of the delay for each pass through a component.
+
+For example, suppose the $NOT$ gate shown figure~\ref{fig:2-valued-circuit} never has a propagation delay of less than $\delta_{min}$ nor a delay of greater than $\delta_{max}$.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[not port] (not1) {}
+	(not1.in) node[anchor=east] {A}
+ 	(not1.out) node[anchor=west] {B};
+\end{circuitikz}
+\caption{A $NOT$ Gate}
+\label{fig:2-valued-circuit}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+	\begin{tikzpicture}[domain=0:4, xscale=1.5, yscale=0.75] 
+   		\draw [thick] (0,1) node[left] {High} -- (1,1);
+    	\draw [thick, dashed] (1,1) -- (1,0);
+    	\draw [thick] (1,0) -- (4,0) node[right] {Low};
+    	\draw [thick] (0,-2) node[left] {Low} -- (2,-2);
+    	\draw [pattern=north west lines] (2,-2) rectangle (2.5,-1);
+    	\draw [thick] (2.5,-1) -- (4,-1) node[right] {High};
+    	\draw [thick,->] (-1,-5) -- (5,-5) node[right] {Time}; 
+    	\draw [<->] (1,-2.5) -- (2,-2.5) 
+			node [pos=0.5,anchor=north] {$\delta_{min}$};
+		\draw [<->]	(1,-3.5) -- (2.5,-3.5) 
+			node [pos=0.5,anchor=north] {$\delta_{max}$};
+	\end{tikzpicture}
+	\caption{2-valued Low-High transition}
+	\label{fig:2-valued-trace}
+\end{figure}
+
+The trace of the truth values through time is shown in figure~\ref{fig:2-valued-trace}. $B$'s transition from Low to High can happen at any point in hatched region based on the aforementioned factors. A 2-valued simulator at this level of detail can therefore only assume that the transition happens at a random time. In other words, the precise propagation delay for each pass through a component is randomly sampled from interval $[\delta_{min}, \delta_{max}]$.
+
+This is not desirable behaviour for a simulator, as each simulation of a circuit will likely have different propagation delays which can potentially change the output of a circuit. In other words, if a run of this simulation works as desired on a circuit there is no guarantee that \textit{all} runs would yield the desired result.
+
+\section{3-Valued Simulation}
+\label{sec:3-valued}
+The way I decided to overcome the problems of 2-valued simulation (see section~\ref{sec:2-valued}) was to instead use a 3-valued simulation. A wire has one of three values: $True$, $False$, $Unknown$. A wire that is $Unknown$ is "in reality" either true or false, but it not know which.
+
+\subsection{Initialisation Values}
+In a 3-valued simulation all wires can be initialised to $Unknown$ without the problem of inconsistency for 2-valued simulations discussed in section~\ref{subsec:2-valued initialisation}.
+
+\subsection{Propagation Delay Uncertainty}
+\label{subsec:3-valued uncertainty}
+The 2-valued simulation was unable to model the uncertainty of component delay without making the result of each simulation run non-deterministic as discussed in section~\ref{subsec:2-valued uncertainty}.
+
+Suppose we have a component $X$ whose inputs are changing at time $t$. In the 2-valued simulation we would consider the outputs changing at time $t + \delta$ where $\delta$ is randomly sampled from the interval $[\delta_{min}, \delta_{max}]$. 
+
+However in the 3-valued simulation we can consider the outputs of $X$ to be changing twice. At time $\delta_{min}$ they becoming $Unknown$, and then at time $\delta_{max}$ they settle on a stable value. 
+
+By considering the output $Unknown$ for the duration of the delay uncertainty we have still modelled the uncertainty in the actual components, but without introducing uncertainty to our simulation. In other words, should a circuit yield a certain value in our simulation we know that it will yield a certain value for \textit{all} possible combinations of gate delays.
+
+\subsection{Event Suppression}
+A bug was introduced in the simulator in section~\ref{subsec:3-valued uncertainty}. Consider the circuit shown in figure~\ref{fig:suppression}. Let $\delta_{min}$ and $\delta_{max}$ be the minimum and maximum gate delay respectively. $A$, $B$, and $C$ are all $False$.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[and port] (and1) {}
+	(and1.in 1) node[anchor=east] {A}
+	(and1.in 2) node[anchor=east] {B}
+ 	(and1.out) node[anchor=west] {C};
+\end{circuitikz}
+\caption{An $AND$ Gate}
+\label{fig:suppression}
+\end{figure}
+
+Let circuit event $e_1$ set $A$ to $True$ at time $t$, and event $e_2$ set $B$ to $True$ at time $t + 1$. Using the algorithm thus far described we will handle $e_1$ and the following two events will be added to the queue: $e_3 = (X, 1, t + \delta_{min}, Unknown)$, $e_4 = (X, 1, t + \delta_{max}, False)$. Next, handling $e2$ we will add these events to the queue: $e_5 = (X, 1, t + 1 + \delta_{min}, Unknown)$, $e_6 = (X, 1, t + 1 + \delta_{max}, True)$.
+
+The bug arises at time $t + \delta_{max}$ when we handle $e_4$. At that time $C$ is set to $Unknown$ and we will set it to $False$. However this is incorrect behaviour as $e_2$ means that $C$ should be uncertain until $e_6$ is handled at time $t + 1 + \delta_{max}$.
+
+In other words, the output of X is uncertain for two distinct reasons. $e_1$ causes $C$ to be uncertain in the interval $[t + \delta_{min}, t + \delta_{max})$, and $e_2$ makes it uncertain in the interval $[t + 1 +  \delta_{min}, t + 1 + \delta_{max})$.
+
+The simulator therefore must keep track of the intervals a wire is uncertain for, and \textit{suppress} any events which try to set it to a certain value in any of those intervals. In this example $e_4$ must be suppressed.
+
+\subsection{Performance Considerations}
+When implementing a 3-valued event-based simulation it is critically important to consider carefully the conditions under which events are \textit{culled}. Many events will cause two more events to be created (an $Unknown$ event followed by either a $True$ or $False$ event). To avoid an exponential explosion in the number of events being processed, duplicate events or events which do not change values in the circuit must be discarded.

@@ -1,0 +1,40 @@
+\contentsline {chapter}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {1.1}Motivation}{4}
+\contentsline {section}{\numberline {1.2}Overview of GatePlay}{4}
+\contentsline {chapter}{\numberline {2}Background}{8}
+\contentsline {section}{\numberline {2.1}Logic Circuits}{8}
+\contentsline {section}{\numberline {2.2}Building Websites}{8}
+\contentsline {subsection}{\numberline {2.2.1}HTML}{8}
+\contentsline {subsection}{\numberline {2.2.2}CSS}{8}
+\contentsline {subsection}{\numberline {2.2.3}JavaScript}{8}
+\contentsline {chapter}{\numberline {3}Requirements}{9}
+\contentsline {chapter}{\numberline {4}Simulation}{10}
+\contentsline {section}{\numberline {4.1}Modelling Circuits}{10}
+\contentsline {section}{\numberline {4.2}Event-Based Simulation}{10}
+\contentsline {subsection}{\numberline {4.2.1}Event Loop Example}{11}
+\contentsline {subsection}{\numberline {4.2.2}Culling}{11}
+\contentsline {subsection}{\numberline {4.2.3}Initial Components}{12}
+\contentsline {subsection}{\numberline {4.2.4}Event Race Conditions}{12}
+\contentsline {subsection}{\numberline {4.2.5}Efficiency}{13}
+\contentsline {section}{\numberline {4.3}2-Valued Simulation}{13}
+\contentsline {subsection}{\numberline {4.3.1}Description}{13}
+\contentsline {subsection}{\numberline {4.3.2}Initialisation Values}{13}
+\contentsline {subsection}{\numberline {4.3.3}Propagation Delay Uncertainty}{13}
+\contentsline {section}{\numberline {4.4}3-Valued Simulation}{14}
+\contentsline {subsection}{\numberline {4.4.1}Initialisation Values}{14}
+\contentsline {subsection}{\numberline {4.4.2}Propagation Delay Uncertainty}{15}
+\contentsline {subsection}{\numberline {4.4.3}Event Suppression}{15}
+\contentsline {subsection}{\numberline {4.4.4}Performance Considerations}{15}
+\contentsline {chapter}{\numberline {5}Implementation}{17}
+\contentsline {subsection}{\numberline {5.0.5}Loading Javascript and Require.js}{17}
+\contentsline {subsection}{\numberline {5.0.6}jQuery}{18}
+\contentsline {section}{\numberline {5.1}Canvas}{18}
+\contentsline {subsection}{\numberline {5.1.1}Fabric.js}{18}
+\contentsline {section}{\numberline {5.2}Simulator}{18}
+\contentsline {subsection}{\numberline {5.2.1}TruthValue}{19}
+\contentsline {subsection}{\numberline {5.2.2}Component}{19}
+\contentsline {subsection}{\numberline {5.2.3}Evaluation Functions}{19}
+\contentsline {subsection}{\numberline {5.2.4}Wire}{21}
+\contentsline {subsection}{\numberline {5.2.5}application.js}{21}
+\contentsline {chapter}{\numberline {6}Testing}{22}
+\contentsline {chapter}{\numberline {7}Conclusions}{23}

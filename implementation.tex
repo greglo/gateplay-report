@@ -1,0 +1,209 @@
+\chapter{Implementation}
+\subsection{Loading Javascript and Require.js}
+When the GatePlay site is visited, the only file downloaded is the main HTML file: index.html. The index then directs the user's browser to download the additional CSS and JavaScript files needed to run GatePlay.
+
+JavaScript files are imported into a webpage using the Script tag. For a file to be correctly loaded all of its dependencies must have been run already.
+
+\begin{figure}
+\begin{lstlisting}[language=html]
+...
+<!-- componentview depends on component, so we ensure component is loaded first -->
+<script type="text/javascript" src=".../component.js"></script>
+<script type="text/javascript" src=".../componentview.js"></script>
+...
+\end{lstlisting}
+\caption{}
+\end{figure}
+
+However it is time consuming for a human to find and type out a correct ordering for the imports, and would potentially need to be updated every time a file as added or modified.
+
+Require.js is a JavaScript file loader which does this automatically. Each JavaScript file declares each of its direct dependencies, and Require.js will ensure they are all loaded correctly when the webpage loads.
+
+\begin{lstlisting}[language=JavaScript]
+// componentview.js
+
+require([
+	// Declare the path of each file we require	
+	"canvas/model/component".
+], function(Component) {
+	// Each included file is run, and we can give a name to whatever it returns if desired
+	var myComponent = new Component();
+	...
+});
+\end{lstlisting}
+
+\subsection{jQuery}
+Different browsers provide subtly different ways for JavaScript to interact with the DOM tree - making multi-browser compatible code tedious to write and maintain.
+
+jQuery is a ubiquitous JavaScript library which provides a single API for common JavaScript actions across many versions of different browsers:
+
+\begin{lstlisting}[language=JavaScript]
+require([
+	"lib/jquery".
+], function($) {
+	// Select elements which are of class "gate"
+	var gateElements = $(".gate");
+	
+	// Set the width of each gate to 100px
+	$(gateElements).each(function() {
+		$(this).width("100px");
+	});
+});
+\end{lstlisting}
+
+\section{Canvas}
+GatePlay's main canvas is where we view and edit circuits. It is an HTML Canvas element, which
+
+
+\subsection{Fabric.js}
+HTML Canvas elements provide only low level drawing tools. You are able to draw shapes and images on them, but there is no concept of persist objects on the canvas.
+
+Fabric.js is a library which wraps HTML Canvases with an object model, allowing GatePlay to interact at the level of objects being added to, modified, and remove from the canvas. 
+
+Suppose I wanted to add a rectangle to a canvas, and then move it to a new location. Using Fabric.js this is two library calls (one to add a rectangle object and one to change the position property of the object). Using an HTML Canvas it is still one call to draw the rectangle, but moving it would require calculating is behind the rectangle, drawing that over the rectangle, and then re-drawing the rectangle at its new location.
+
+Initially GatePlay used a different canvas framework called KineticJS but at the time the API documentation was not as good and so I transitioned to using Fabric.js.
+
+\section{Simulator}
+GatePlay's simulation is a plain JavaScript implementation of the concepts explained in 
+
+\subsection{TruthValue}
+
+
+\subsection{Component}
+A component is defined by the following class constructor:
+
+\begin{lstlisting}[language=JavaScript]
+function Component(id, funcId, inputCount, outputCount, cArg) {
+    this._id = id;
+    this._funcId = funcId;
+    this._inputCount = inputCount;
+    this._outputCount = outputCount;
+    this._cArg = cArg;
+
+    this._evalFunc = Functions.get(funcId, cArg);
+}
+\end{lstlisting}
+
+\begin{itemize}
+	\item[id] \hfill \\ 
+	Is the unique identifier of this instance of a component. It is provided as a parameter in the constructor because it is simpler to use the same id for the object drawn on the canvas and the Component in the simulation.
+	\item[funcId] \hfill \\ 
+	This is the id of the evaluation function of the Component. For example an AND gate would have funcId being "and".
+	\item[inputCount]
+	\item[outputCount]
+	\item[cArg] \hfill \\ 
+	An optional parameter for gates which require it. For "blinker" components cArg is set to the period of the blinker. For simpler components like "and" it is unset.
+	\item[evalFunc] \hfill \\ 
+	We fetch the appropriate evaluation function from the function store
+\end{itemize}
+
+\subsection{Evaluation Functions}
+An evaluation function is first defined by the abstract class EvaluationFunction. It provides code common to all Evaluation Functions, such as checking that the list provided to the function "evaluate" is of a suitable size.
+
+\begin{lstlisting}[language=JavaScript]
+// Define the class with two parameters
+function EvaluationFunction(minInputCount, maxInputCount) {
+    this._minInputCount = minInputCount;
+    this._maxInputCount = maxInputCount;
+}
+
+// Define "evaluate" function
+EvaluationFunction.prototype.evaluate = function(argList, clock) {
+    if (typeof argList == "undefined" || !argList instanceof Array)
+        throw "argList must be a list";
+
+    if (argList.length < this._minInputCount || argList.length > this._maxInputCount)
+        throw "Invalid number of arguments passed to EvaluationFunction";
+
+    return this._doEvaluate(argList, clock);
+};
+
+// "_doEvaluate" must be overridden by subclasses of EvaluationFunction
+EvaluationFunction.prototype._doEvaluate = function(argList, clock) {
+    throw "_doEvaluate not implemented on EvaluationFunction, you must override it";
+}
+
+// Default gate delay is 5 clock cycles
+EvaluationFunction.prototype.getDelay = function() {
+    return 5;
+}
+
+// Default uncertainty duration is 1 clock cycle
+EvaluationFunction.prototype.getUncertaintyDuration = function() {
+    return 1;
+}
+\end{lstlisting}
+
+Individual implementations of evaluation functions then inherit from EvaluationFunction.
+
+\begin{lstlisting}[language=JavaScript]
+	// Define the "And" class
+    function And() {
+    }
+    
+    // Inherit from EvaluationFunction
+    // We define that an And gate must have at least two inputs, but there is no upper bound (we can simulate n-input AND gates)
+    And.prototype = new EvaluationFunction(2);
+    
+    // Provide an implementation for "_doEvaluate"
+    And.prototype._doEvaluate = function(argList, clock) {
+        var onlyTrue = true;
+
+        for (var i = 0; i < argList.length; i++) {
+            var v = argList[i];
+            
+            // If any of the arguments are FALSE, return FALSE
+            if (v === TruthValue.FALSE) {
+                return [TruthValue.FALSE];
+            }
+            onlyTrue = onlyTrue && v === TruthValue.TRUE;
+        }
+		
+		// If all values are TRUE, return TRUE
+        if (onlyTrue) {
+            return [TruthValue.TRUE];
+        
+		// Otherwise we have zero FALSE values and at least one UNKNOWN value, so the output is UNKNOWN        
+        } else { 
+            return [TruthValue.UNKNOWN];
+        }
+    };
+\end{lstlisting}
+
+Because our implementation of the And function does not override the "getDelay" and "getUncertaintyDuration" functions, it has the default values of 5 and 1 respectively.
+
+\subsection{Wire}
+Wires are defined as follows for the simulation
+
+\begin{lstlisting}[language=JavaScript]
+define([
+    "sim/truthvalue"
+], function(TruthValue) {
+    function Wire(id, sourceId, sourcePort, destId, destPort) {
+		// Wire id    
+        this.id = id;
+        
+        // Id of source component
+        this.sourceId = sourceId;
+        
+        // Output index from the source component
+        this.sourcePort = sourcePort;
+        
+        // Id of the destination component
+        this.destId = destId;
+        
+        // Input index to the destination component
+        this.destPort = destPort;
+        
+        // Current truth value of the wire (starts as UNKNOWN)
+        this.truthValue = TruthValue.UNKNOWN;
+        
+        this.unstableUntil = 0;
+    }
+
+    return Wire;
+});
+\end{lstlisting}
+
+\subsection{application.js}
