@@ -6,15 +6,12 @@
 A logic circuit is a collection of logic \textit{gates} to perform logical operations on data. They are used to implement Boolean functions, which in turn can run all algorithms which can be described with Boolean logic.
 
 \section{Building Websites}
-GatePlay is a web application, which is loaded into the clients browser as a web page. Practically all websites use HTML and CSS, and possibly JavaScript, for their implementation.
+GatePlay is a web application. Instead of being installed on the user's computer it runs in their web browser. GatePlay is a single HTML document and has relatively few CSS style rules. The vast majority of the work was creating the JavaScript, which handles all interactions with the top and left bars, as well as displaying and editing circuits.
 
-\subsection{HTML}
-HTML defines the semantic structure of the website as a collection of nested elements, known as the DOM (Document Object Model) tree. In other words, HTML defines the content of a website and the structure of headings, sections, paragraphs, etc.
-
-\subsection{CSS}
-CSS (Cascading Style Sheets) modify how HTML documents are displayed by the clients browser. CSS files are lists of \textit{selectors} with associated \textit{attributes}. A selector describes elements based on their position in the DOM tree, and its attributes modify how those elements are displayed.
-
-For example, it is easy to specify the following styles in CSS: "All elements of type \textit{gate} should be 150 pixels wide", or "The middle section of the website should take up 80 percent of the width".
-
-\subsection{JavaScript}
-JavaScript is a full programming language which is run in the user's browser when they load the website. It can perform arbitrary computations, and is also free to modify the DOM tree and the styles of elements.
+\begin{itemize}
+	\item[HTML] defines the semantic structure of the website as a collection of nested elements, known as the DOM (Document Object Model) tree. In other words, HTML defines the content of a website and the structure of headings, sections, paragraphs, etc.
+	
+	\item[CSS] Cascading Style Sheets modify how HTML documents are displayed by the clients browser. CSS files are lists of \textit{selectors} with associated \textit{attributes}. A selector describes elements based on their position in the DOM tree, and its attributes modify how those elements are displayed. For example, it is easy to specify the following styles in CSS: "All elements of type \textit{gate} should be 150 pixels wide", or "The middle section of the website should take up 80 percent of the width".
+	
+	\item[JavaScript] JavaScript is a full programming language which is run in the user's browser when they load the website. It can perform arbitrary computations, and is also free to modify the DOM tree and the styles of elements.
+\end{itemize}

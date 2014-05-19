@@ -1,57 +1,45 @@
 \chapter{Implementation}
-\subsection{Loading Javascript and Require.js}
-When the GatePlay site is visited, the only file downloaded is the main HTML file: index.html. The index then directs the user's browser to download the additional CSS and JavaScript files needed to run GatePlay.
+Make some general points here
 
-JavaScript files are imported into a webpage using the Script tag. For a file to be correctly loaded all of its dependencies must have been run already.
+\section{Getting Started}
 
-\begin{figure}
+\subsection{Require.js}
+When the GatePlay url is visited, the only file downloaded is the main HTML file: index.html. The index then directs the user's browser to download the additional CSS and JavaScript files needed to use GatePlay.
+
+A JavaScript script may used methods or variables defined in the global namespace, even if they were put there by another script. The only restriction is that
+
+\begin{figure}[H]
 \begin{lstlisting}[language=html]
-...
-<!-- componentview depends on component, so we ensure component is loaded first -->
+<!-- componentview depends on component -->
+<!-- Therefore we ensure component is loaded first -->
 <script type="text/javascript" src=".../component.js"></script>
 <script type="text/javascript" src=".../componentview.js"></script>
-...
 \end{lstlisting}
-\caption{}
+\caption{Example use of Script tags}
 \end{figure}
 
-However it is time consuming for a human to find and type out a correct ordering for the imports, and would potentially need to be updated every time a file as added or modified.
+It is time consuming for a human to find and type out a correct ordering for the Script tags, and it would need to be updated every time a file as added or removed, or sometimes if a file were modified.
 
-Require.js is a JavaScript file loader which does this automatically. Each JavaScript file declares each of its direct dependencies, and Require.js will ensure they are all loaded correctly when the webpage loads.
+Require.js is a JavaScript file loader which does automatically loads files in a correct order. Each JavaScript file declares each of its direct dependencies, and Require.js will ensure they are all loaded correctly when the webpage loads.
 
+\begin{figure}[H]
 \begin{lstlisting}[language=JavaScript]
 // componentview.js
 
 require([
 	// Declare the path of each file we require	
-	"canvas/model/component".
+	"canvas/model/component"
 ], function(Component) {
 	// Each included file is run, and we can give a name to whatever it returns if desired
 	var myComponent = new Component();
 	...
 });
 \end{lstlisting}
+\caption{An example file which uses Require.js}
+\end{figure}
 
-\subsection{jQuery}
-Different browsers provide subtly different ways for JavaScript to interact with the DOM tree - making multi-browser compatible code tedious to write and maintain.
+\section{The Workbench}
 
-jQuery is a ubiquitous JavaScript library which provides a single API for common JavaScript actions across many versions of different browsers:
-
-\begin{lstlisting}[language=JavaScript]
-require([
-	"lib/jquery".
-], function($) {
-	// Select elements which are of class "gate"
-	var gateElements = $(".gate");
-	
-	// Set the width of each gate to 100px
-	$(gateElements).each(function() {
-		$(this).width("100px");
-	});
-});
-\end{lstlisting}
-
-\section{Canvas}
 GatePlay's main canvas is where we view and edit circuits. It is an HTML Canvas element, which
 
 
@@ -64,146 +52,26 @@ Suppose I wanted to add a rectangle to a canvas, and then move it to a new locat
 
 Initially GatePlay used a different canvas framework called KineticJS but at the time the API documentation was not as good and so I transitioned to using Fabric.js.
 
-\section{Simulator}
-GatePlay's simulation is a plain JavaScript implementation of the concepts explained in 
+\subsection{MVC with Backbone.js}
 
-\subsection{TruthValue}
+\subsection{Editing Mode}
 
+\subsection{Running Mode}
 
-\subsection{Component}
-A component is defined by the following class constructor:
-
-\begin{lstlisting}[language=JavaScript]
-function Component(id, funcId, inputCount, outputCount, cArg) {
-    this._id = id;
-    this._funcId = funcId;
-    this._inputCount = inputCount;
-    this._outputCount = outputCount;
-    this._cArg = cArg;
-
-    this._evalFunc = Functions.get(funcId, cArg);
-}
-\end{lstlisting}
+\section{The Simulator}
+The implementation of GatePlay's simulator is simply a transliteration of the algorithms and ideas explained in section~\ref{chapter:simulation} to JavaScript. The following six classes fully implement the simulator:
 
 \begin{itemize}
-	\item[id] \hfill \\ 
-	Is the unique identifier of this instance of a component. It is provided as a parameter in the constructor because it is simpler to use the same id for the object drawn on the canvas and the Component in the simulation.
-	\item[funcId] \hfill \\ 
-	This is the id of the evaluation function of the Component. For example an AND gate would have funcId being "and".
-	\item[inputCount]
-	\item[outputCount]
-	\item[cArg] \hfill \\ 
-	An optional parameter for gates which require it. For "blinker" components cArg is set to the period of the blinker. For simpler components like "and" it is unset.
-	\item[evalFunc] \hfill \\ 
-	We fetch the appropriate evaluation function from the function store
+	\item \textbf{truthvalue.js} defines constants $TRUE$, $FALSE$, and $UNKNOWN$
+	\item \textbf{component.js} defines a Component by its input count, output count, and evaluation function
+	\item \textbf{wire.js} defines a Wire by its input component and port, output component and port, and truth value
+	\item \textbf{circuitevent.js} defines a CircuitEvent by component, port, timestamp, and value
+	\item \textbf{functions.js} contains definitions of all the Evaluation Functions available to the simulator 
+	\item \textbf{circuit.js} is the only class which need be visible from outside the simulator. It has an interface to add components and wires. Circuit.js implements the algorithm for the event loop. 
 \end{itemize}
 
-\subsection{Evaluation Functions}
-An evaluation function is first defined by the abstract class EvaluationFunction. It provides code common to all Evaluation Functions, such as checking that the list provided to the function "evaluate" is of a suitable size.
+\section{Drag and Drop}
 
-\begin{lstlisting}[language=JavaScript]
-// Define the class with two parameters
-function EvaluationFunction(minInputCount, maxInputCount) {
-    this._minInputCount = minInputCount;
-    this._maxInputCount = maxInputCount;
-}
-
-// Define "evaluate" function
-EvaluationFunction.prototype.evaluate = function(argList, clock) {
-    if (typeof argList == "undefined" || !argList instanceof Array)
-        throw "argList must be a list";
-
-    if (argList.length < this._minInputCount || argList.length > this._maxInputCount)
-        throw "Invalid number of arguments passed to EvaluationFunction";
-
-    return this._doEvaluate(argList, clock);
-};
-
-// "_doEvaluate" must be overridden by subclasses of EvaluationFunction
-EvaluationFunction.prototype._doEvaluate = function(argList, clock) {
-    throw "_doEvaluate not implemented on EvaluationFunction, you must override it";
-}
-
-// Default gate delay is 5 clock cycles
-EvaluationFunction.prototype.getDelay = function() {
-    return 5;
-}
-
-// Default uncertainty duration is 1 clock cycle
-EvaluationFunction.prototype.getUncertaintyDuration = function() {
-    return 1;
-}
-\end{lstlisting}
-
-Individual implementations of evaluation functions then inherit from EvaluationFunction.
-
-\begin{lstlisting}[language=JavaScript]
-	// Define the "And" class
-    function And() {
-    }
-    
-    // Inherit from EvaluationFunction
-    // We define that an And gate must have at least two inputs, but there is no upper bound (we can simulate n-input AND gates)
-    And.prototype = new EvaluationFunction(2);
-    
-    // Provide an implementation for "_doEvaluate"
-    And.prototype._doEvaluate = function(argList, clock) {
-        var onlyTrue = true;
-
-        for (var i = 0; i < argList.length; i++) {
-            var v = argList[i];
-            
-            // If any of the arguments are FALSE, return FALSE
-            if (v === TruthValue.FALSE) {
-                return [TruthValue.FALSE];
-            }
-            onlyTrue = onlyTrue && v === TruthValue.TRUE;
-        }
-		
-		// If all values are TRUE, return TRUE
-        if (onlyTrue) {
-            return [TruthValue.TRUE];
-        
-		// Otherwise we have zero FALSE values and at least one UNKNOWN value, so the output is UNKNOWN        
-        } else { 
-            return [TruthValue.UNKNOWN];
-        }
-    };
-\end{lstlisting}
-
-Because our implementation of the And function does not override the "getDelay" and "getUncertaintyDuration" functions, it has the default values of 5 and 1 respectively.
-
-\subsection{Wire}
-Wires are defined as follows for the simulation
-
-\begin{lstlisting}[language=JavaScript]
-define([
-    "sim/truthvalue"
-], function(TruthValue) {
-    function Wire(id, sourceId, sourcePort, destId, destPort) {
-		// Wire id    
-        this.id = id;
-        
-        // Id of source component
-        this.sourceId = sourceId;
-        
-        // Output index from the source component
-        this.sourcePort = sourcePort;
-        
-        // Id of the destination component
-        this.destId = destId;
-        
-        // Input index to the destination component
-        this.destPort = destPort;
-        
-        // Current truth value of the wire (starts as UNKNOWN)
-        this.truthValue = TruthValue.UNKNOWN;
-        
-        this.unstableUntil = 0;
-    }
-
-    return Wire;
-});
-\end{lstlisting}
+\section{Tying GatePlay Together}
 
 \subsection{application.js}
