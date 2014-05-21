@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  19 MAY 2014 23:46
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  20 MAY 2014 13:14
 entering extended mode
 **report.tex
 (C:\Users\Greg\Documents\gateplay-report\report.tex
@@ -581,21 +581,32 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
 
 
 ]
+[18] <mvc.png, id=79, 501.875pt x 552.0625pt>
+File: mvc.png Graphic file (type png)
+ <use mvc.png>
+Package pdftex.def Info: mvc.png used on input line 66.
+(pdftex.def)             Requested size: 345.0pt x 379.51675pt.
 
-LaTeX Warning: Reference `chapter:simulation' on page 18 undefined on input lin
-e 62.
+Overfull \hbox (12.77782pt too wide) in paragraph at lines 66--67
+ \OT1/cmr/m/n/10 0.5[] 
+ []
 
-[18]) [19] (C:\Users\Greg\Documents\gateplay-report\testing.tex
+
+LaTeX Warning: Reference `chapter:simulation' on page 19 undefined on input lin
+e 130.
+
+[19 <C:/Users/Greg/Documents/gateplay-report/mvc.png>] [20]) [21]
+(C:\Users\Greg\Documents\gateplay-report\testing.tex
 Chapter 6.
-) [20
+) [22
 
 
-] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
+] [23] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
 Chapter 7.
-) [21
+) [24
 
 
-] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [22
+] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [25
 
 
 ]
@@ -605,10 +616,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18057 strings out of 493921
- 414919 string characters out of 3144880
- 558010 words of memory out of 3000000
- 21053 multiletter control sequences out of 15000+200000
+ 18097 strings out of 493921
+ 415385 string characters out of 3144880
+ 575058 words of memory out of 3000000
+ 21092 multiletter control sequences out of 15000+200000
  10228 words of font info for 36 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  55i,9n,59p,724b,1328s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -627,9 +638,9 @@ TeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX
 fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
 s/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on report.pdf (22 pages, 397074 bytes).
+Output written on report.pdf (25 pages, 426135 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
+ 152 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 27 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 32 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -27,14 +27,14 @@
 \contentsline {subsection}{\numberline {5.1.1}Require.js}{17}
 \contentsline {section}{\numberline {5.2}The Workbench}{18}
 \contentsline {subsection}{\numberline {5.2.1}Fabric.js}{18}
-\contentsline {subsection}{\numberline {5.2.2}MVC with Backbone.js}{19}
-\contentsline {subsection}{\numberline {5.2.3}Editing Mode}{19}
-\contentsline {subsection}{\numberline {5.2.4}Running Mode}{19}
-\contentsline {section}{\numberline {5.3}The Simulator}{19}
-\contentsline {section}{\numberline {5.4}Drag and Drop}{19}
-\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{19}
-\contentsline {subsection}{\numberline {5.5.1}application.js}{19}
-\contentsline {chapter}{\numberline {6}Testing}{20}
-\contentsline {section}{\numberline {6.1}Unit Testing}{20}
-\contentsline {section}{\numberline {6.2}Test Circuits}{20}
-\contentsline {chapter}{\numberline {7}Conclusions}{21}
+\contentsline {subsection}{\numberline {5.2.2}MVC with Backbone.js}{18}
+\contentsline {subsection}{\numberline {5.2.3}Editing Mode}{21}
+\contentsline {subsection}{\numberline {5.2.4}Running Mode}{21}
+\contentsline {section}{\numberline {5.3}The Simulator}{21}
+\contentsline {section}{\numberline {5.4}Drag and Drop}{21}
+\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{21}
+\contentsline {subsection}{\numberline {5.5.1}application.js}{21}
+\contentsline {chapter}{\numberline {6}Testing}{22}
+\contentsline {section}{\numberline {6.1}Unit Testing}{22}
+\contentsline {section}{\numberline {6.2}End-to-end Testing}{22}
+\contentsline {chapter}{\numberline {7}Conclusions}{24}

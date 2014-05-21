@@ -1,5 +1,37 @@
 \chapter{Testing}
+Testing is extremely important in the development of non-trivial programs. Tests give some assurance to the correctness of the code, and highlight \textit{regressions} (where code that used to work is broken by a recent change) quickly.
 
 \section{Unit Testing}
+Unit testing is used to test the correctness of small modules of code, such as functions. The simulator has a suite of unit tests. One example is a test over the $AND$ evaluation function shown in figure~\ref{fig:andtest}. All \textit{evaluate} functions had to be changed when $Blinker$s were implemented, and this test flagged a regression when the first implementation had a bug.
 
-\section{Test Circuits}
+\begin{figure}
+\begin{lstlisting}[language=JavaScript]
+var T = TruthValue.TRUE;
+var F = TruthValue.FALSE;
+var U = TruthValue.UNKNOWN;
+
+function ANDTest() {
+	var and = Functions.get("and");	
+	
+	// Test 2-input truth table
+	equal(and.evaluate([T,T]), T);
+	equal(and.evaluate([T,F]), F);
+	equal(and.evaluate([T,U]), U);
+	equal(and.evaluate([F,T]), F);
+	equal(and.evaluate([F,F]), F);
+	equal(and.evaluate([F,U]), F);
+	equal(and.evaluate([U,T]), U);
+	equal(and.evaluate([U,F]), F);
+	equal(and.evaluate([U,U]), U);
+}
+\end{lstlisting}
+\caption{Testing $AND$'s truth table}
+\label{fig:andtest}
+\end{figure}
+
+Unit tests are also very useful for catching simple bugs in frequently edited code. For example, the \textit{tick} function in the circuit simulator is responsible for handling all events which occur at the current time, and them increments the current time. Since the \textit{tick} function is so frequently modified, it is easy to introduce simple bugs. The test shown in figure~ simply checks that the system clock is incremented after \textit{tick} is called.
+
+I used a common JavaScript unit testing framework QUnit\footnote{http://qunit.com} to reduce the boilerplate in writing unit tests.
+
+\section{End-to-end Testing}
+Unit testing is a bottom-up approach which checks that the smallest modules work as expected in isolation. End-to-end testing is a top-down approach which
