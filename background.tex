@@ -3,7 +3,11 @@
 
 \section{Logic Circuits}
 \label{sec:circuits}
-A logic circuit is a collection of logic \textit{gates} to perform logical operations on data. They are used to implement Boolean functions, which in turn can run all algorithms which can be described with Boolean logic.
+A \textit{Boolean function} $F$ is defined as $F : {True, False}^n -> {True, False}^m$. Logic \textit{gates} are physical implementations of (typically simple) logic functions. A logic \textit{circuit} is a collection of logic gates wired together, producing an implementation of the composition of the gate boolean functions.
+
+By composing ever more complex functions we can create physical implementations of useful circuits --- for example circuits which add or multiply numbers.
+
+A gate has a \textit{propagation delay} defined as the time from when its inputs become stable and valid to when its outputs become stable and valid (cite wikipedia).
 
 \section{Building Websites}
 GatePlay is a web application. Instead of being installed on the user's computer it runs in their web browser. GatePlay is a single HTML document and has relatively few CSS style rules. The vast majority of the work was creating the JavaScript, which handles all interactions with the top and left bars, as well as displaying and editing circuits.

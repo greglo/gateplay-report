@@ -6,7 +6,7 @@ Make some general points here
 \subsection{Require.js}
 When the GatePlay url is visited, the only file downloaded is the main HTML file: index.html. The index then directs the user's browser to download the additional CSS and JavaScript files needed to use GatePlay.
 
-A JavaScript script may used methods or variables defined in the global namespace, even if they were put there by another script. The only restriction is that
+A JavaScript script may used methods or variables defined in the global namespace, even if they were put there by another script, provided that the script has already been run.
 
 \begin{figure}[H]
 \begin{lstlisting}[language=html]
@@ -40,15 +40,15 @@ require([
 
 \section{The Workbench}
 
-GatePlay's workbench is where we create and view circuits. It is implemented using an HTML Canvas element. It is a blank slate which can have shapes and images drawn using the JavaScript API.
+GatePlay's workbench is where we create and view circuits, and is implemented using an HTML Canvas element. A canvas is a blank slate which can have shapes and images drawn using the JavaScript API.
 
 
 \subsection{Fabric.js}
 An HTML Canvas only provides low level drawing tools. You are able to draw shapes and images on it, but there is no concept of persist objects on the canvas.
 
-Fabric.js is a library which wraps HTML Canvases with an object model, allowing GatePlay to interact at the level of objects being added to, modified, and remove from the canvas. 
+Fabric.js is a library which wraps HTML Canvases with an object model, allowing GatePlay to interact at the level of objects being added to, modified, and remove from the canvas, rather thana  flat array of pixels.
 
-Suppose I wanted to add a rectangle to a canvas, and then move it to a new location. Using Fabric.js this is two library calls (one to add a rectangle object and one to change the position property of the object). Using an HTML Canvas it is still one call to draw the rectangle, but moving it would require calculating what would be behind the rectangle, drawing that over the rectangle, and then re-drawing the rectangle at its new location.
+Suppose I wanted to add a rectangle to a canvas, and then move it to a new location. Using Fabric.js this is two library calls (one to add a rectangle object and one to change the position property of the object). Using an HTML Canvas it is still one call to draw the rectangle, but moving it would require calculating what would be behind the rectangle, drawing that over the rectangle, and then re-drawing the rectangle at its new location. Fabric.js greatly reduces the amount of boilerplate code otherwise needed to interact with canvases.
 
 Initially GatePlay used a different canvas framework called KineticJS, but due to difficulties getting features like snap-to-grid working I switched to Fabric.js.
 
@@ -56,14 +56,14 @@ Initially GatePlay used a different canvas framework called KineticJS, but due t
 Model-view-controller\footnote{http://en.wikipedia.org/wiki/Model-view-controller} is a design pattern to simply program development. GatePlay uses MVC in the implementation of the workbench. MVC applications contain three types of components:
 
 \begin{itemize}
-	\item A \textbf{model} which stores some part of the state of the application
-	\item A \textbf{view} which displays a representation of one of the models to the user
-	\item A \textbf{controller} which processes user input, and updates the appropriate models.
+	\item \textbf{Models} which store some part of the state of the application
+	\item \textbf{Views} which display a representation of one of the models to the user
+	\item \textbf{Controllers} which process user input, and updates the appropriate models.
 \end{itemize}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth * 0.5]{mvc.png}
+	\includegraphics[width=(\textwidth * 0.5)]{mvc.png}
 	\caption{Interaction of MVC Components, from Wikipedia}
 	\label{fig:mvc}
 \end{figure}
