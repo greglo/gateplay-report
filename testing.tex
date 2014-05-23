@@ -4,6 +4,8 @@ Testing is extremely important in the development of non-trivial programs. Tests
 \section{Unit Testing}
 Unit testing is used to test the correctness of small modules of code, such as functions. The simulator has a suite of unit tests. One example is a test over the $AND$ evaluation function shown in figure~\ref{fig:andtest}. All \textit{evaluate} functions had to be changed when $Blinker$s were implemented, and this test flagged a regression when the first implementation had a bug.
 
+I used a common JavaScript unit testing framework called QUnit\footnote{http://qunit.com} to reduce the boilerplate in writing unit tests.
+
 \begin{figure}
 \begin{lstlisting}[language=JavaScript]
 var T = TruthValue.TRUE;
@@ -29,9 +31,104 @@ function ANDTest() {
 \label{fig:andtest}
 \end{figure}
 
-Unit tests are also very useful for catching simple bugs in frequently edited code. For example, the \textit{tick} function in the circuit simulator is responsible for handling all events which occur at the current time, and them increments the current time. Since the \textit{tick} function is so frequently modified, it is easy to introduce simple bugs. The test shown in figure~ simply checks that the system clock is incremented after \textit{tick} is called.
+Unit tests can also be used to verify more complicated units of code. Figure~\ref{fig:circuittest} shows a unit test which verifies the output of a simulation run on a full circuit (two $ON$s, an $OR$, and an $LED$).
 
-I used a common JavaScript unit testing framework QUnit\footnote{http://qunit.com} to reduce the boilerplate in writing unit tests.
+\begin{figure}
+\begin{lstlisting}[language=JavaScript]
+var T = TruthValue.TRUE;
+var F = TruthValue.FALSE;
+var U = TruthValue.UNKNOWN;
+
+function circuitTest() {
+	var circuit = new SimCircuit;
+	
+	// Create a simple circuit with 2 ONs, an OR, and an LED
+	// Arguments are ID, evalFuncID, inputCount, outputCount
+	circuit.addComponent(1, "on", 0, 1);
+	circuit.addComponent(2, "on", 0, 1);
+	circuit.addComponent(3, "or", 2, 1);
+	circuit.addComponent(4, "led", 1, 0);
+
+	// Add wires
+	// Id, sourceId, sourcePort, targetId, targetPort
+	circuit.addWire(1, 1, 0, 3, 0);
+	circuit.addWire(2, 2, 0, 3, 1);
+	circuit.addWire(3, 3, 0, 4, 0);
+	
+	var wireEvents = [];
+	circuit.addWireEventListener(function(wireId, truthValue) {
+		wireEvents.push([id: wireId, value: truthValue]);
+	});
+	
+	circuit.initialize();
+	for (var i = 0; i < 1000; i++) {
+		circuit.tick();
+	}
+	
+	// Wires should have changed value 3 times in total
+	equal(wireEvents.length, 3);
+	
+	// The first two changes are wires 1 and 2 changing U -> T
+	var event0 = wireEvents[0];
+	var event1 = wireEvents[1];
+	var event2 = wireEvents[2];
+	
+	// The first two events could be in either order and still be 
+	//correct, so swap them if necessary
+	if (event0.id !== 1) {
+		var t = event0;
+		event0 = event1;
+		event1 = t;
+	}
+	
+	equal(event0.id, 1);
+	equal(event0.value, TruthValue.TRUE);
+	equal(event1.id, 2);
+	equal(event1.value, TruthValue.TRUE);
+	
+	// The third event must be wire 3 becoming true
+	equal(event2.id, 3);
+	equal(event2.value, TruthValue.TRUE);
+}
+\end{lstlisting}
+\caption{Testing a simple circuit}
+\label{fig:circuittest}
+\end{figure}
+
+\subsection{Ring Oscillator}
+A ring oscillator\footnote{http://en.wikipedia.org/wiki/ring\_oscillator} can be implemented as an odd number of $NOT$ gates arranged in a loop, as shown in figure~\ref{fig:ringoscillator}. 
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz} \draw
+	(1,0) node[not port] (not1) {}
+	(3,0) node[not port] (not2) {}
+	(5,0) node[not port] (not3) {}
+	(not1.out) -- (not2.in)
+	(not2.out) -- (not3.in)
+	(not3.out) -| (6,-1) -| (0,0) -- (not1.in);
+\end{circuitikz}
+\caption{A ring oscillator}
+\label{fig:ringoscillator}
+\end{figure}
+
+As discussed in section~\ref{subsec:2-valued uncertainty}, the delay of components is not constant. Therefore the frequency of the oscillator --- the sum of the gate delays of the components --- is not constant. Therefore after some number of oscillators (precisely $\delta_{min} / (\delta_{max} - \delta_{min}$) it is impossible to know the value of any of the wires given only the initial state. If the components were running fast ($\delta = \delta_{min}$) a wire will be one value, if the components were running slow ($\delta = \delta_{max}$) it will be the other.
+
+An explicit requirement of workbench was that it simulate the oscillator falling into the state where all the wire values are $Unknown$. I wrote a unit test checking that a 3-$NOT$ ring oscillator does so: the code is identical to that in figure~\ref{fig:circuittest} except the circuit is 3 $NOT$ gates, and the expected events  
+
+
 
 \section{End-to-end Testing}
-Unit testing is a bottom-up approach which checks that the smallest modules work as expected in isolation. End-to-end testing is a top-down approach which
+Unit testing is a bottom-up approach which checks that the smallest modules work as expected in isolation. End-to-end testing is a top-down approach which tests that entire application works as desired.
+
+Frameworks such as Nightwatch.js\footnote{http://http://nightwatchjs.org/} do exist to automate end-to-end testing. I felt that writing a comprehensive suite of end-to-end tests would take prohibitively long (there are a huge number of different canvas interactions). Therefore the end-to-end tests were done manually by acting as the user.
+
+\section{Fail-Fast Methodology}
+Fail-fast is not a testing strategy, but because it helps in the development of bug free (or as close to bug free as possible) programs I will mention it here.
+
+Consider a method \textit{getComponentById} in a the workbench \textit{Circuit} class. Given some ID of a component, it returns the full object. There are two reasonable behaviours should no such component exist:
+
+\begin{enumerate}
+	\item Return a default value, such as \textit{null}
+	\item Throw an exception
+\end{enumerate}

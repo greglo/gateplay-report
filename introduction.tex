@@ -22,17 +22,14 @@ The main interface of GatePlay can be seen in figure~\ref{fig:interface}. The la
 	\item[3] The \textbf{workbench}, which is where almost all interaction with GatePlay happens. When editing you can move, delete, and draw wires between components. When simulating the values of wires are shown visually on the workbench.
 \end{itemize}
 
-GatePlay has a library of standard components to build circuits with:
+GatePlay has a library of standard components which can be used to build circuits. All of the components are implemented as black boxes, even though most of them can be re-implemented using a combination of the simpler components.
 
-\begin{figure}[H]
 \begin{itemize}
 	\item \textbf{Input} components such as constant $ON$, $Toggle$ (clicking on a $Toggle$ during simulation will change its value), and $Blinker$ (which flip their value at a constant interval)
 	\item \textbf{Gates} implement standard boolean logic functions such as $NOT$, $AND$, and $XOR$
-	\item \textbf{Composites} like half and full adders
-	\item \textbf{Memory} components like SR latches and D flip-flop  
+	\item \textbf{Function} components such half adders and full adders
+	\item \textbf{Memory} components such as SR latches and D flip-flop  
 \end{itemize}
-\caption{Overview of the components available in GatePlay}
-\end{figure}
 
 A typical workflow for creating circuits would be:
 
@@ -43,8 +40,6 @@ A typical workflow for creating circuits would be:
 	\item The simulation can now be paused, resumed, or advanced manually by using the controls in the top-bar
 	\item The user may decide to return to editing mode to add, move, or delete components, or re-wire parts of the circuit.
 \end{enumerate}
-
-\end{itemize}
 
 Figure~\ref{fig:dflopflop} shows a D flip-flop being simulated on the workbench. Green wires are $High$ (logical $True$) and red wires are $Low$ (logical $False$). The round components on the left are $Toggle$s; clicking them will change their value and cause the resulting changes to propagate through the circuit.
 
