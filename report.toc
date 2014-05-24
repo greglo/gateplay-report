@@ -7,36 +7,39 @@
 \contentsline {chapter}{\numberline {3}Requirements}{10}
 \contentsline {chapter}{\numberline {4}Simulation}{11}
 \contentsline {section}{\numberline {4.1}Modelling Circuits}{11}
-\contentsline {section}{\numberline {4.2}Event-Based Simulation}{11}
+\contentsline {subsection}{\numberline {4.1.1}2-Valued Simulation}{11}
+\contentsline {section}{\numberline {4.2}Event-Based Simulation}{12}
 \contentsline {subsection}{\numberline {4.2.1}Initial Components}{12}
-\contentsline {subsection}{\numberline {4.2.2}Event Loop Example}{12}
+\contentsline {subsection}{\numberline {4.2.2}Event Loop Example}{13}
 \contentsline {subsection}{\numberline {4.2.3}Culling}{13}
 \contentsline {subsection}{\numberline {4.2.4}Event Race Conditions}{13}
 \contentsline {subsection}{\numberline {4.2.5}Efficiency}{14}
-\contentsline {section}{\numberline {4.3}2-Valued Simulation}{14}
-\contentsline {subsection}{\numberline {4.3.1}Description}{14}
-\contentsline {subsection}{\numberline {4.3.2}Initialisation Values}{14}
-\contentsline {subsection}{\numberline {4.3.3}Propagation Delay Uncertainty}{15}
+\contentsline {section}{\numberline {4.3}Limitations of 2-Valued Simulations}{14}
+\contentsline {subsection}{\numberline {4.3.1}Initialisation Values}{14}
+\contentsline {subsection}{\numberline {4.3.2}Propagation Delay Uncertainty}{15}
 \contentsline {section}{\numberline {4.4}3-Valued Simulation}{16}
 \contentsline {subsection}{\numberline {4.4.1}Initialisation Values}{16}
 \contentsline {subsection}{\numberline {4.4.2}Propagation Delay Uncertainty}{16}
-\contentsline {subsection}{\numberline {4.4.3}Event Suppression}{16}
+\contentsline {subsection}{\numberline {4.4.3}Event Suppression}{17}
 \contentsline {chapter}{\numberline {5}Implementation}{18}
 \contentsline {section}{\numberline {5.1}Getting Started}{18}
-\contentsline {subsection}{\numberline {5.1.1}Require.js}{18}
+\contentsline {subsection}{\numberline {5.1.1}Require.js}{19}
 \contentsline {section}{\numberline {5.2}The Workbench}{19}
-\contentsline {subsection}{\numberline {5.2.1}Fabric.js}{19}
-\contentsline {subsection}{\numberline {5.2.2}MVC with Backbone.js}{19}
-\contentsline {subsection}{\numberline {5.2.3}Editing Mode}{21}
-\contentsline {subsection}{\numberline {5.2.4}Running Mode}{21}
-\contentsline {section}{\numberline {5.3}The Simulator}{21}
-\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{22}
-\contentsline {section}{\numberline {5.4}Drag-and-drop}{23}
-\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{23}
-\contentsline {subsection}{\numberline {5.5.1}application.js}{23}
-\contentsline {chapter}{\numberline {6}Testing}{25}
-\contentsline {section}{\numberline {6.1}Unit Testing}{25}
-\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{25}
-\contentsline {section}{\numberline {6.2}End-to-end Testing}{26}
-\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{28}
-\contentsline {chapter}{\numberline {7}Conclusions}{29}
+\contentsline {subsection}{\numberline {5.2.1}MVC with Backbone.js}{20}
+\contentsline {subsection}{\numberline {5.2.2}Models}{20}
+\contentsline {subsection}{\numberline {5.2.3}Views}{22}
+\contentsline {subsubsection}{Fabric.js}{22}
+\contentsline {subsubsection}{ComponentView}{22}
+\contentsline {subsection}{\numberline {5.2.4}Editing Mode}{23}
+\contentsline {subsection}{\numberline {5.2.5}Running Mode}{23}
+\contentsline {section}{\numberline {5.3}The Simulator}{23}
+\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{24}
+\contentsline {section}{\numberline {5.4}Drag-and-drop}{25}
+\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{25}
+\contentsline {subsection}{\numberline {5.5.1}application.js}{25}
+\contentsline {chapter}{\numberline {6}Testing}{27}
+\contentsline {section}{\numberline {6.1}Unit Testing}{27}
+\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{27}
+\contentsline {section}{\numberline {6.2}End-to-end Testing}{28}
+\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{30}
+\contentsline {chapter}{\numberline {7}Conclusions}{31}

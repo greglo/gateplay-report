@@ -1,17 +1,15 @@
 \chapter{Introduction}
 
 \section{Motivation}
-Logic circuits underpin practically every aspect of modern life in the form of computer chips. Therefore it is important that people have the opportunity to learn about and understand logic circuits.
+Logic circuits underpin practically every aspect of modern life in the form of computer chips. It is therefore important that people have the opportunity to learn about and understand logic circuits.
 
-I believe that one of the best ways to learn about logic circuits is to build them, and that the most accessible way of doing that is by using a simulated workbench. The workbench should be very simple to use, but not 'dumb down' the simulation to the point of being unhelpful.
+I believe that one of the best ways to learn about logic circuits is to build them, and that the most accessible way of doing that is by using a simulated workbench --- avoiding the cost and knowledge of realising physical circuits. The workbench should be easy to use, but not simplify the simulation to the point where it gives a false impression of how logic gates work. The workbench is not designed to be used by professionals in designing chips, but for casual users looking to learn about logic circuitry.
 
-On-line logic circuit workbenches already exist. Two of the best examples I could find on the Internet were Logic.ly\footnote{http://logic.ly} and CircuitLab\footnote{http://www.circuitlab.com}.
+Projects which attempt to solve the same problem can already be found on the Internet. Two of the best examples I could find were Logic.ly\footnote{http://logic.ly} and CircuitLab\footnote{http://www.circuitlab.com}.
 
-Logic.ly was easy to use, but had two major problems. Firstly it was implemented using Adobe Flash, which requires a web browser plugin not included on many devices (notably iOS devices). Flash also presents a security risk as historically older versions of the plugin have proved easy to exploit. Secondly, Logic.ly uses a simplistic simulation which does not take into account gate delays.
+Logic.ly was easy to use but had two major problems. First and foremost, the simulation implemented in Logic.ly over simplified: it does not assign any propagation delay to its components, making it difficult to see what happens in oscillating circuits. Secondly, it is implemented using Adobe Flash. Flash requires a web browser plug-in not included on many devices (notably iOS devices), which reduces Logic.ly's accessibility.
 
-CircuitLab
-
-
+CircuitLab is more aimed at power users and has a much steeper learning curve than most casual users are likely to endure.
 
 \section{Overview of GatePlay}
 The main interface of GatePlay can be seen in figure~\ref{fig:interface}. The labelled regions are:
