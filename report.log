@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  23 MAY 2014 16:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  24 MAY 2014 22:29
 entering extended mode
 **report.tex
 (C:\Users\Greg\Documents\gateplay-report\report.tex
@@ -491,11 +491,11 @@ LaTeX Font Info:    ... okay on input line 46.
 ) ABD: EveryShipout initializing macros
 \c@lstlisting=\count124
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 52.
+(Font)              <12> on input line 54.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 52.
+(Font)              <8> on input line 54.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 52.
+(Font)              <6> on input line 54.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] (C:\Users\Greg\Documents\
@@ -516,49 +516,49 @@ Chapter 1.
 
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 26.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 30.
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 26.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
 
 <labelled.png, id=27, 1927.2pt x 983.675pt>
 File: labelled.png Graphic file (type png)
  <use labelled.png>
-Package pdftex.def Info: labelled.png used on input line 46.
+Package pdftex.def Info: labelled.png used on input line 51.
 (pdftex.def)             Requested size: 598.0pt x 305.22128pt.
 
 
-LaTeX Warning: Float too large for page by 23.94444pt on input line 49.
+LaTeX Warning: Float too large for page by 19.77776pt on input line 54.
 
-<dflipflop.png, id=28, 1927.2pt x 985.6825pt>
+[5] <dflipflop.png, id=33, 1927.2pt x 985.6825pt>
 File: dflipflop.png Graphic file (type png)
  <use dflipflop.png>
-Package pdftex.def Info: dflipflop.png used on input line 53.
+Package pdftex.def Info: dflipflop.png used on input line 58.
 (pdftex.def)             Requested size: 598.0pt x 305.84418pt.
 
 
-LaTeX Warning: Float too large for page by 23.94444pt on input line 56.
+LaTeX Warning: Float too large for page by 19.88889pt on input line 61.
 
-) [5] [6 <C:/Users/Greg/Documents/gateplay-report/labelled.png (PNG copy)>]
-[7 <C:/Users/Greg/Documents/gateplay-report/dflipflop.png (PNG copy)>]
+) [6] [7 <C:/Users/Greg/Documents/gateplay-report/labelled.png (PNG copy)>]
+[8 <C:/Users/Greg/Documents/gateplay-report/dflipflop.png (PNG copy)>]
 (C:\Users\Greg\Documents\gateplay-report\background.tex
 Chapter 2.
-[8
+[9
 
 
-]) [9] (C:\Users\Greg\Documents\gateplay-report\requirements.tex
+]) [10] (C:\Users\Greg\Documents\gateplay-report\requirements.tex
 Chapter 3.
-) [10
+) [11
 
 
 ] (C:\Users\Greg\Documents\gateplay-report\simulation.tex
 Chapter 4.
-[11
+[12
 
 
-] [12] [13] [14] [15] [16]) [17]
+] [13] [14] [15] [16] [17]) [18]
 (C:\Users\Greg\Documents\gateplay-report\implementation.tex
 Chapter 5.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
@@ -569,47 +569,47 @@ File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <8> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 21.
- [18
+ [19
 
 
 ]
-<mvc.png, id=78, 501.875pt x 552.0625pt>
+<mvc.png, id=82, 501.875pt x 552.0625pt>
 File: mvc.png Graphic file (type png)
  <use mvc.png>
 Package pdftex.def Info: mvc.png used on input line 63.
 (pdftex.def)             Requested size: 172.5pt x 189.75417pt.
- [19] [20 <C:/Users/Greg/Documents/gateplay-report/mvc.png>] [21] [22] [23] [24
+ [20] [21 <C:/Users/Greg/Documents/gateplay-report/mvc.png>] [22] [23] [24] [25
 ]
-<application.png, id=101, 735.74875pt x 402.50375pt>
+<application.png, id=105, 735.74875pt x 402.50375pt>
 File: application.png Graphic file (type png)
  <use application.png>
 Package pdftex.def Info: application.png used on input line 265.
 (pdftex.def)             Requested size: 345.0pt x 188.74072pt.
 )
-[25] [26 <C:/Users/Greg/Documents/gateplay-report/application.png>]
+[26] [27 <C:/Users/Greg/Documents/gateplay-report/application.png>]
 (C:\Users\Greg\Documents\gateplay-report\testing.tex
 Chapter 6.
-[27
+[28
 
 
-] [28] [29]) [30] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
+] [29] [30]) [31] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
 Chapter 7.
-) [31
+) [32
 
 
-] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [32
+] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [33
 
 
 ]
 (C:\Users\Greg\Documents\gateplay-report\report.aux) ) 
 Here is how much of TeX's memory you used:
  18175 strings out of 493921
- 416476 string characters out of 3144880
- 704914 words of memory out of 3000000
+ 416497 string characters out of 3144880
+ 704919 words of memory out of 3000000
  21169 multiletter control sequences out of 15000+200000
  10228 words of font info for 36 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 55i,9n,59p,634b,1328s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,9n,59p,639b,1328s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTe
@@ -626,9 +626,9 @@ onts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmtt8.pfb>
-Output written on report.pdf (32 pages, 466670 bytes).
+Output written on report.pdf (33 pages, 472181 bytes).
 PDF statistics:
- 176 PDF objects out of 1000 (max. 8388607)
+ 179 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  37 words of extra memory for PDF output out of 10000 (max. 10000000)
 

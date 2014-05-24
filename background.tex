@@ -3,21 +3,26 @@
 
 \section{Logic Circuits}
 \label{sec:circuits}
-A \textit{k-ary Boolean function} is a function which $k$ boolean values and returns a boolean value.
+A \textit{k-ary Boolean function} is a function which take $k$ boolean values and returns a boolean value.
 \[ F : \{True, False\}^k \rightarrow \{True, False\} \]
-\textit{Logic gates} are physical implementations of (typically simple) boolean functions. A \textit{logic circuit} is a collection of logic gates wired together, producing an implementation of a composition of boolean functions.
+\textit{Logic gates} are physical implementations of (typically simple) boolean functions. A \textit{logic circuit} is a collection of logic gates wired together, producing an implementation of the composition of boolean functions.
 
-By composing ever more complex functions we can create physical implementations of useful circuits --- for example circuits which add or multiply numbers.
+By composing ever more complex functions we can create physical implementations of useful circuits --- for example circuits which add or multiply the binary representation of numbers.
 
-A gate has a \textit{propagation delay} defined as the time from when its inputs become stable and valid to when its outputs become stable and valid (cite wikipedia). Propagation delay changes based on the following factors
+A logic gate has a \textit{propagation delay} defined as the time from when its inputs become stable and valid to when its outputs become stable and valid. Propagation delay changes based on temperature, voltage, and output capacitance (\cite{Wikipedia: Propagation Delay}).
 
 \section{Building Websites}
-GatePlay is a web application. Instead of being installed on the user's computer it runs in their web browser. GatePlay is a single HTML document and has relatively few CSS style rules. The vast majority of the work was creating the JavaScript, which handles all interactions with the top and left bars, as well as displaying and editing circuits.
+GatePlay is a web application. Instead of being installed on the user's computer it runs in their web browser. GatePlay is a single HTML document and has relatively few CSS style rules. The vast majority of the work was creating the JavaScript, which handles all interactions with the top and left bars, as well as displaying, editing, and simulating circuits.
 
 \begin{itemize}
 	\item[HTML] defines the semantic structure of the website as a collection of nested elements, known as the DOM (Document Object Model) tree. In other words, HTML defines the content of a website and the structure of headings, sections, paragraphs, etc.
 	
 	\item[CSS] Cascading Style Sheets modify how HTML documents are displayed by the clients browser. CSS files are lists of \textit{selectors} with associated \textit{attributes}. A selector describes elements based on their position in the DOM tree, and its attributes modify how those elements are displayed. For example, it is easy to specify the following styles in CSS: ``All elements of type \textit{gate} should be 150 pixels wide'', or ``The middle section of the website should take up 80 percent of the width''.
 	
-	\item[JavaScript] JavaScript is a full programming language which is run in the user's browser when they load the website. It can perform arbitrary computations, and is also free to modify the DOM tree and the styles of elements.
+	\item[JavaScript] JavaScript is a full programming language which is run in the user's browser when they load the website. It can perform arbitrary computations, and is also free to modify the structure of the  DOM tree and the styles of elements.
 \end{itemize}
+
+\subsection{JavaScript}
+JavaScript is as dynamic, imperative programming language which can run in all modern web browsers. The code listings included in this report should be understandable to those familiar with languages such as C++ or Java.
+
+JavaScript is an example of Prototype-based programming\footnote{http://en.wikipedia.org/wiki/Prototype-based\_programming}. In the code listings of this report, lines such as ``MyClass.prototype.myMethod = function(...) { ... }'' can be thought of simply as adding the method \textit{myMethod} to the class definition of \textit{MyClass}.
