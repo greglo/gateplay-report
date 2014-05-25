@@ -31,17 +31,25 @@
 \contentsline {subsection}{\numberline {5.2.2}Models}{21}
 \contentsline {subsection}{\numberline {5.2.3}Views}{23}
 \contentsline {subsubsection}{Fabric.js}{23}
-\contentsline {subsubsection}{ComponentView}{23}
-\contentsline {subsection}{\numberline {5.2.4}Editing Mode}{24}
-\contentsline {subsection}{\numberline {5.2.5}Running Mode}{24}
-\contentsline {section}{\numberline {5.3}The Simulator}{24}
-\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{25}
-\contentsline {section}{\numberline {5.4}Drag-and-drop}{26}
-\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{26}
-\contentsline {subsection}{\numberline {5.5.1}application.js}{26}
-\contentsline {chapter}{\numberline {6}Testing}{28}
-\contentsline {section}{\numberline {6.1}Unit Testing}{28}
-\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{28}
-\contentsline {section}{\numberline {6.2}End-to-end Testing}{29}
-\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{31}
-\contentsline {chapter}{\numberline {7}Conclusions}{32}
+\contentsline {subsubsection}{ComponentView}{24}
+\contentsline {subsubsection}{WireView}{24}
+\contentsline {subsubsection}{CircuitView}{24}
+\contentsline {subsection}{\numberline {5.2.4}Controllers}{24}
+\contentsline {subsubsection}{EditingEventHandler}{26}
+\contentsline {subsubsection}{RunningEventHandler}{26}
+\contentsline {section}{\numberline {5.3}The Simulator}{26}
+\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{26}
+\contentsline {section}{\numberline {5.4}Drag-and-drop}{27}
+\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{28}
+\contentsline {chapter}{\numberline {6}Testing}{30}
+\contentsline {section}{\numberline {6.1}Unit Testing}{30}
+\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{30}
+\contentsline {section}{\numberline {6.2}End-to-end Testing}{31}
+\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{33}
+\contentsline {chapter}{\numberline {7}Conclusions}{34}
+\contentsline {paragraph}{Accessibility}{34}
+\contentsline {paragraph}{Simulation}{34}
+\contentsline {subsection}{\numberline {7.0.1}Future Work}{34}
+\contentsline {subsubsection}{Wires over components}{34}
+\contentsline {subsubsection}{Saving circuits as black-boxes}{34}
+\contentsline {subsubsection}{Simulation oscilloscope}{35}

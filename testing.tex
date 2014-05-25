@@ -132,3 +132,5 @@ Consider a method \textit{getComponentById} in a the workbench \textit{Circuit} 
 	\item Return a default value, such as \textit{null}
 	\item Throw an exception
 \end{enumerate}
+
+If \textit{null} is returned the calling code may not check for it. If the result is saved to a variable without being checked, it is possible for the code to fail much later in the future when the variable is accessed. Throwing an exception forces the calling code to handle it immediately, or the program will halt immediately. By ensuring that errors surface as quickly as possible bugs can be found sooner in testing.

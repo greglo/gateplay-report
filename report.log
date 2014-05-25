@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  24 MAY 2014 22:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.3.9)  25 MAY 2014 02:37
 entering extended mode
 **report.tex
 (C:\Users\Greg\Documents\gateplay-report\report.tex
@@ -491,11 +491,11 @@ LaTeX Font Info:    ... okay on input line 46.
 ) ABD: EveryShipout initializing macros
 \c@lstlisting=\count124
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 54.
+(Font)              <12> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 54.
+(Font)              <8> on input line 55.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 54.
+(Font)              <6> on input line 55.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] (C:\Users\Greg\Documents\
@@ -579,56 +579,63 @@ File: mvc.png Graphic file (type png)
 Package pdftex.def Info: mvc.png used on input line 63.
 (pdftex.def)             Requested size: 172.5pt x 189.75417pt.
  [20] [21 <C:/Users/Greg/Documents/gateplay-report/mvc.png>] [22] [23] [24] [25
-]
-<application.png, id=105, 735.74875pt x 402.50375pt>
+] [26] [27]
+<application.png, id=111, 735.74875pt x 422.57875pt>
 File: application.png Graphic file (type png)
  <use application.png>
-Package pdftex.def Info: application.png used on input line 265.
-(pdftex.def)             Requested size: 345.0pt x 188.74072pt.
-)
-[26] [27 <C:/Users/Greg/Documents/gateplay-report/application.png>]
+Package pdftex.def Info: application.png used on input line 315.
+(pdftex.def)             Requested size: 345.0pt x 198.15422pt.
+
+[28 <C:/Users/Greg/Documents/gateplay-report/application.png>]) [29]
 (C:\Users\Greg\Documents\gateplay-report\testing.tex
 Chapter 6.
-[28
+[30
 
 
-] [29] [30]) [31] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
+] [31] [32]) [33] (C:\Users\Greg\Documents\gateplay-report\conclusions.tex
 Chapter 7.
-) [32
+
+LaTeX Warning: Reference `chapter:requirements' on page 34 undefined on input l
+ine 2.
+
+[34
 
 
-] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [33
+]) [35] (C:\Users\Greg\Documents\gateplay-report\bibliography.tex) [36
 
 
 ]
-(C:\Users\Greg\Documents\gateplay-report\report.aux) ) 
+(C:\Users\Greg\Documents\gateplay-report\report.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 18175 strings out of 493921
- 416497 string characters out of 3144880
- 704919 words of memory out of 3000000
- 21169 multiletter control sequences out of 15000+200000
+ 18188 strings out of 493921
+ 416739 string characters out of 3144880
+ 705023 words of memory out of 3000000
+ 21182 multiletter control sequences out of 15000+200000
  10228 words of font info for 36 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 55i,9n,59p,639b,1328s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pub
-lic/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
-amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmtt8.pfb>
-Output written on report.pdf (33 pages, 472181 bytes).
+ 55i,9n,59p,680b,1328s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
+:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/P
+rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Pro
+gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x86)/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on report.pdf (36 pages, 483300 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
+ 188 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  37 words of extra memory for PDF output out of 10000 (max. 10000000)
 

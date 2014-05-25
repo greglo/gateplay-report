@@ -44,8 +44,6 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces AND gate}}{15}}
 \newlabel{fig:racecondition}{{4.5}{15}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.6}Efficiency}{15}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces A $NOT$ Gate}}{16}}
-\newlabel{fig:2-valued-circuit}{{4.7}{16}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Limitations of 2-Valued Simulations}{16}}
 \newlabel{sec:2-valued}{{4.3}{16}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Initialisation Values}{16}}
@@ -54,6 +52,8 @@
 \newlabel{fig:initialisation}{{4.6}{16}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Propagation Delay Uncertainty}{16}}
 \newlabel{subsec:2-valued uncertainty}{{4.3.2}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces A $NOT$ Gate}}{16}}
+\newlabel{fig:2-valued-circuit}{{4.7}{16}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Trace of a $NOT$ gate's input and output}}{17}}
 \newlabel{fig:2-valued-trace}{{4.8}{17}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.4}3-Valued Simulation}{17}}
@@ -69,51 +69,65 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{chapter:implementation}{{5}{19}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}Getting Started}{19}}
+\citation{Wikipedia: MVC Image}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Example use of Script tags}}{20}}
 \newlabel{fig:scripttags}{{5.1}{20}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Require.js}{20}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces An example file which uses Require.js}}{20}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}The Workbench}{20}}
 \newlabel{section:workbench}{{5.2}{20}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Interaction of MVC Components, from Wikipedia}}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Interaction of MVC Components, from Wikipedia\cite  {Wikipedia: MVC Image}}}{21}}
 \newlabel{fig:mvc}{{5.3}{21}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}MVC with Backbone.js}{21}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Models}{21}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Definition of a Component model}}{22}}
 \newlabel{fig:componentmodel}{{5.4}{22}}
-\newlabel{fig:wiremodel}{{5.2.2}{22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Definition of a Wire model}}{22}}
+\newlabel{fig:wiremodel}{{5.5}{22}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Views}{23}}
 \@writefile{toc}{\contentsline {subsubsection}{Fabric.js}{23}}
-\@writefile{toc}{\contentsline {subsubsection}{ComponentView}{23}}
-\newlabel{fig:wireview}{{5.2.3}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Editing Mode}{24}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.5}Running Mode}{24}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}The Simulator}{24}}
-\newlabel{section:simulator}{{5.3}{24}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Implementation of $Blinker$'s evaluation function}}{25}}
-\newlabel{fig:blinkereval}{{5.5}{25}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces }}{25}}
-\newlabel{fig:blinkerqueue}{{5.6}{25}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{25}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Drag-and-drop}{26}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{26}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}application.js}{26}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Information flow in GatePlay}}{27}}
-\newlabel{fig:application}{{5.7}{27}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Testing}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{ComponentView}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{WireView}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{CircuitView}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Controllers}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Definition of a ComponentView}}{25}}
+\newlabel{fig:componentview}{{5.6}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces CircuitView render method}}{25}}
+\newlabel{fig:circuitrender}{{5.7}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{EditingEventHandler}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{RunningEventHandler}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}The Simulator}{26}}
+\newlabel{section:simulator}{{5.3}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Blinker Events}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Implementation of $Blinker$'s evaluation function}}{27}}
+\newlabel{fig:blinkereval}{{5.8}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces }}{27}}
+\newlabel{fig:blinkerqueue}{{5.9}{27}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Drag-and-drop}{27}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Tying GatePlay Together}{28}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces Information flow in GatePlay}}{28}}
+\newlabel{fig:application}{{5.10}{28}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Testing}{30}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Unit Testing}{28}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{28}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces A ring oscillator}}{28}}
-\newlabel{fig:ringoscillator}{{6.3}{28}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Testing $AND$'s truth table}}{29}}
-\newlabel{fig:andtest}{{6.1}{29}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}End-to-end Testing}{29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Testing a simple circuit}}{30}}
-\newlabel{fig:circuittest}{{6.2}{30}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{31}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Unit Testing}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces A ring oscillator}}{30}}
+\newlabel{fig:ringoscillator}{{6.3}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Testing $AND$'s truth table}}{31}}
+\newlabel{fig:andtest}{{6.1}{31}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}End-to-end Testing}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Testing a simple circuit}}{32}}
+\newlabel{fig:circuittest}{{6.2}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{33}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions}{34}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {paragraph}{Accessibility}{34}}
+\@writefile{toc}{\contentsline {paragraph}{Simulation}{34}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.0.1}Future Work}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{Wires over components}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{Saving circuits as black-boxes}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{Simulation oscilloscope}{35}}
 \bibcite{Wikipedia: Propagation Delay}{1}
+\bibcite{Wikipedia: MVC Image}{2}
