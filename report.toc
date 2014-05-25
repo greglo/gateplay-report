@@ -31,25 +31,26 @@
 \contentsline {subsection}{\numberline {5.2.2}Models}{21}
 \contentsline {subsection}{\numberline {5.2.3}Views}{23}
 \contentsline {subsubsection}{Fabric.js}{23}
-\contentsline {subsubsection}{ComponentView}{24}
-\contentsline {subsubsection}{WireView}{24}
-\contentsline {subsubsection}{CircuitView}{24}
-\contentsline {subsection}{\numberline {5.2.4}Controllers}{24}
-\contentsline {subsubsection}{EditingEventHandler}{26}
+\contentsline {subsubsection}{ComponentView}{23}
+\contentsline {subsubsection}{WireView}{25}
+\contentsline {subsubsection}{CircuitView}{25}
+\contentsline {subsection}{\numberline {5.2.4}Controllers}{25}
+\contentsline {subsubsection}{EditingEventHandler}{25}
 \contentsline {subsubsection}{RunningEventHandler}{26}
 \contentsline {section}{\numberline {5.3}The Simulator}{26}
 \contentsline {subsection}{\numberline {5.3.1}Blinker Events}{26}
-\contentsline {section}{\numberline {5.4}Drag-and-drop}{27}
+\contentsline {section}{\numberline {5.4}Drag-and-drop}{28}
 \contentsline {section}{\numberline {5.5}Tying GatePlay Together}{28}
-\contentsline {chapter}{\numberline {6}Testing}{30}
-\contentsline {section}{\numberline {6.1}Unit Testing}{30}
-\contentsline {subsection}{\numberline {6.1.1}Ring Oscillator}{30}
+\contentsline {chapter}{\numberline {6}Testing}{31}
+\contentsline {section}{\numberline {6.1}Unit Testing}{31}
 \contentsline {section}{\numberline {6.2}End-to-end Testing}{31}
-\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{33}
-\contentsline {chapter}{\numberline {7}Conclusions}{34}
-\contentsline {paragraph}{Accessibility}{34}
-\contentsline {paragraph}{Simulation}{34}
-\contentsline {subsection}{\numberline {7.0.1}Future Work}{34}
-\contentsline {subsubsection}{Wires over components}{34}
-\contentsline {subsubsection}{Saving circuits as black-boxes}{34}
-\contentsline {subsubsection}{Simulation oscilloscope}{35}
+\contentsline {subsection}{\numberline {6.2.1}Ring Oscillator}{32}
+\contentsline {section}{\numberline {6.3}Fail-Fast Methodology}{32}
+\contentsline {chapter}{\numberline {7}Conclusions}{35}
+\contentsline {paragraph}{Accessibility}{35}
+\contentsline {paragraph}{Simulation}{35}
+\contentsline {subsection}{\numberline {7.0.1}Future Work}{35}
+\contentsline {subsubsection}{Wires over components}{35}
+\contentsline {subsubsection}{Moving wires when components are moved}{36}
+\contentsline {subsubsection}{Saving circuits as black-boxes}{36}
+\contentsline {subsubsection}{Simulation oscilloscope}{36}

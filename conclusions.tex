@@ -2,19 +2,22 @@
 Evaluating GatePlay against each of the requirements stated in chapter~\ref{chapter:requirements} I reach the following conclusions:
 
 \paragraph{Accessibility}
-GatePlay runs in all modern web browsers without the need for plug-ins. The feedback I received from those who saw GatePlay running was that the user interface was appealing and simple to use. Some people found the workflow for creating wires slightly unintuitive (you single click to start drawing, rather than click and hold), so a miniature tutorial to guide new users through the interface would certainly be of benefit.
+GatePlay runs in all modern web browsers without the need for plug-ins, and satisfies those aspects of the requirements. The feedback I received from those who saw GatePlay running was that the user interface was appealing and simple to use. Some people found the workflow for creating wires slightly unintuitive (you single click to start drawing, rather than click and hold), so a miniature tutorial to guide new users through the interface would certainly be of benefit.
 
 \paragraph{Simulation}
-The simulation is at the right level
+I am pleased with the level of simulation implemented in GatePlay. Having gate propagation delays allows users to see clearly how changes in the inputs to a circuit propagate through to the outputs. I am also satisfied that users of GatePlay will not come away with an over-simplified view of logic circuits which might harm their understanding in the future.
 
 \subsection{Future Work}
 While I am very pleased with GatePlay as it is today, there are some features that would improve it further.
 
 \subsubsection{Wires over components}
-It was always the intention that wires should be able to cross each other, but not cross over components. The workbench Circuit model is able to check if wires cross over any components, but the handler code for moving components became extremely complicated when it had to account for the position of wires. Ultimately I did not resolve the issue, and wires can travel over components.
+It was always my intention that wires should be able to cross each other, but not cross over components. The workbench Circuit model is able to check if wires cross over any components, but the handler code for moving components became extremely complicated when it had to account for the position of wires. Ultimately I did not resolve the issue, and wires can travel over components.
+
+\subsubsection{Moving wires when components are moved}
+When a component is moved, all the wires to and from that component are deleted. I considered two other strategies for preserving the wires: either creating fixed points where the component ports used to be, or using A* search to find a new path for each wire. In the end I implemented neither. In the future I would like to implement a better strategy for moving wires when a component moves. 
 
 \subsubsection{Saving circuits as black-boxes}
 I useful feature would be the ability to create circuits and then save them for use as a black-box later. GatePlay has an existing notion of inputs ($Toggle$s) and outputs ($LED$s) and it would not be much more work to allow users to ``compile'' their workbench to a black-box.
 
 \subsubsection{Simulation oscilloscope}
-The circuit simulator emits a stream of wire value changes as it runs. In GatePlay, these are handled by the Application class and used to colour the wires on the workbench. In addition to this, it would be useful to be able to view traces of the wire values through time (like the one I drew manually in figure~\ref{fig:2-valued-trace}.
+The circuit simulator emits a stream of wire value changes as it runs. In GatePlay, these are handled by the Application class and used to colour the wires on the workbench. In addition to this, it would be useful to be able to view traces of the wire values through time, and I would have liked to write a module to create such traces.

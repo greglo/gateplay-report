@@ -4,6 +4,8 @@ Testing is extremely important in the development of non-trivial programs. Tests
 \section{Unit Testing}
 Unit testing is used to test the correctness of small modules of code, such as functions. The simulator has a suite of unit tests. One example is a test over the $AND$ evaluation function shown in figure~\ref{fig:andtest}. All \textit{evaluate} functions had to be changed when $Blinker$s were implemented, and this test flagged a regression when the first implementation had a bug.
 
+Unit tests can also be used to verify more complicated units of code. Figure~\ref{fig:circuittest} shows a unit test which verifies the output of a simulation run on a full circuit (two $ON$s, an $OR$, and an $LED$).
+
 I used a common JavaScript unit testing framework called QUnit\footnote{http://qunit.com} to reduce the boilerplate in writing unit tests.
 
 \begin{figure}
@@ -31,16 +33,10 @@ function ANDTest() {
 \label{fig:andtest}
 \end{figure}
 
-Unit tests can also be used to verify more complicated units of code. Figure~\ref{fig:circuittest} shows a unit test which verifies the output of a simulation run on a full circuit (two $ON$s, an $OR$, and an $LED$).
-
 \begin{figure}
 \begin{lstlisting}[language=JavaScript]
-var T = TruthValue.TRUE;
-var F = TruthValue.FALSE;
-var U = TruthValue.UNKNOWN;
-
-function circuitTest() {
-	var circuit = new SimCircuit;
+function simpleCircuitTest() {
+	var circuit = new SimCircuit();
 	
 	// Create a simple circuit with 2 ONs, an OR, and an LED
 	// Arguments are ID, evalFuncID, inputCount, outputCount
@@ -57,7 +53,7 @@ function circuitTest() {
 	
 	var wireEvents = [];
 	circuit.addWireEventListener(function(wireId, truthValue) {
-		wireEvents.push([id: wireId, value: truthValue]);
+		wireEvents.push({id: wireId, value: truthValue});
 	});
 	
 	circuit.initialize();
@@ -68,7 +64,6 @@ function circuitTest() {
 	// Wires should have changed value 3 times in total
 	equal(wireEvents.length, 3);
 	
-	// The first two changes are wires 1 and 2 changing U -> T
 	var event0 = wireEvents[0];
 	var event1 = wireEvents[1];
 	var event2 = wireEvents[2];
@@ -81,6 +76,7 @@ function circuitTest() {
 		event1 = t;
 	}
 	
+	// The first two events are wires 1 and 2 changing U -> T	
 	equal(event0.id, 1);
 	equal(event0.value, TruthValue.TRUE);
 	equal(event1.id, 2);
@@ -94,6 +90,11 @@ function circuitTest() {
 \caption{Testing a simple circuit}
 \label{fig:circuittest}
 \end{figure}
+
+\section{End-to-end Testing}
+Unit testing is a bottom-up approach which checks that the smallest modules work as expected in isolation. End-to-end testing is a top-down approach which tests that entire application works as desired.
+
+Frameworks such as Nightwatch.js\footnote{http://http://nightwatchjs.org/} do exist to automate end-to-end testing. I felt that writing a comprehensive suite of end-to-end tests would take prohibitively long (there are a huge number of different canvas interactions). Therefore the end-to-end tests were done manually by me.
 
 \subsection{Ring Oscillator}
 A ring oscillator\footnote{http://en.wikipedia.org/wiki/ring\_oscillator} can be implemented as an odd number of $NOT$ gates arranged in a loop, as shown in figure~\ref{fig:ringoscillator}. 
@@ -112,19 +113,12 @@ A ring oscillator\footnote{http://en.wikipedia.org/wiki/ring\_oscillator} can be
 \label{fig:ringoscillator}
 \end{figure}
 
-As discussed in section~\ref{subsec:2-valued uncertainty}, the delay of components is not constant. Therefore the frequency of the oscillator --- the sum of the gate delays of the components --- is not constant. Therefore after some number of oscillators (precisely $\delta_{min} / (\delta_{max} - \delta_{min}$) it is impossible to know the value of any of the wires given only the initial state. If the components were running fast ($\delta = \delta_{min}$) a wire will be one value, if the components were running slow ($\delta = \delta_{max}$) it will be the other.
+As discussed in section~\ref{subsec:2-valued uncertainty}, the delay of components is not constant. Therefore the period of the oscillator --- the sum of the gate delays of the components --- is also not constant. After some number of oscillators it is impossible to know the value of any of the wires given only the initial state. If the components were running fast ($\delta = \delta_{min}$) a wire will be one value, if the components were running slow ($\delta = \delta_{max}$) it will be the other.
 
-An explicit requirement of workbench was that it simulate the oscillator falling into the state where all the wire values are $Unknown$. I wrote a unit test checking that a 3-$NOT$ ring oscillator does so: the code is identical to that in figure~\ref{fig:circuittest} except the circuit is 3 $NOT$ gates, and the expected events  
-
-
-
-\section{End-to-end Testing}
-Unit testing is a bottom-up approach which checks that the smallest modules work as expected in isolation. End-to-end testing is a top-down approach which tests that entire application works as desired.
-
-Frameworks such as Nightwatch.js\footnote{http://http://nightwatchjs.org/} do exist to automate end-to-end testing. I felt that writing a comprehensive suite of end-to-end tests would take prohibitively long (there are a huge number of different canvas interactions). Therefore the end-to-end tests were done manually by acting as the user.
+An explicit requirement of workbench was that it simulate the oscillator falling into the state where all the wire values are $Unknown$. The most common end-to-end test I performed was to build a ring oscillator on the workbench and simulate it. The simulator implemented in GatePlay satisfies this requirement.
 
 \section{Fail-Fast Methodology}
-Fail-fast is not a testing strategy, but because it helps in the development of bug free (or as close to bug free as possible) programs I will mention it here.
+Fail-fast is not a testing strategy, but I mention it here because it helps in reducing the number of undiscovered bugs in a program.
 
 Consider a method \textit{getComponentById} in a the workbench \textit{Circuit} class. Given some ID of a component, it returns the full object. There are two reasonable behaviours should no such component exist:
 
@@ -133,4 +127,6 @@ Consider a method \textit{getComponentById} in a the workbench \textit{Circuit} 
 	\item Throw an exception
 \end{enumerate}
 
-If \textit{null} is returned the calling code may not check for it. If the result is saved to a variable without being checked, it is possible for the code to fail much later in the future when the variable is accessed. Throwing an exception forces the calling code to handle it immediately, or the program will halt immediately. By ensuring that errors surface as quickly as possible bugs can be found sooner in testing.
+Suppose \textit{null} is returned and the result is saved to a variable without being checked. It is possible for the program to fail much later in the future when the variable is accessed. The failure may be difficult to debug in the future, because the incorrect code ran much earlier. 
+
+Throwing an exception forces the calling code to handle the failure immediately, or the program will halt immediately. By ensuring that errors surface as quickly as possible, bugs can be found sooner and are easier to diagnose.
